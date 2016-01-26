@@ -1,0 +1,29 @@
+<#
+    Script: Set AD attributes OfficePhone and MobilePhone
+    Author: Bart Tacken
+    Date:   24-03-2013
+#>
+
+#Import AD module
+Import-Module ActiveDirectory
+
+#Set variables
+$CSVpath = 'C:\Mgmt\PS\CSV\Users_PenM_OK.csv'  
+$customOU = "OU=x,OU=y,OU=organization,DC=domain,DC=local"
+
+#Import CSV into variable $usersCSV
+$usersCSV = Import-Csv -Path $CSVpath -Delimiter ';'        
+           
+foreach ($user in $usersCSV) {
+    #Search in specified OU and Update existing attributes
+
+    If ($user.MobilePhone -ne '') {
+        Get-ADUser ($user.samaccountname) | 
+        Set-ADUser -MobilePhone "$($user.MobilePhone)"
+    }
+
+    If ($user.OfficePhone -ne '') {
+        Get-ADUser ($user.samaccountname) | 
+        Set-ADUser -OfficePhone "$($user.OfficePhone)"
+    }
+}
