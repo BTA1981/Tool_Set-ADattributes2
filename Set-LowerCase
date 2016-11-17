@@ -1,0 +1,9 @@
+Import-Module ActiveDirectory -Global -Force # Import AD module
+$Users = Get-ADuser -Searchbase "OU=Users,OU=OU,DC=domain,DC=local" -Properties * -Filter *
+
+ForEach ($User in $Users) { 
+    
+    Write-Output "Changing eMail [$($User.mail)].."  
+    Set-ADuser -Identity $User -EmailAddress $($User.mail).tolower()
+    
+} # End ForEach
