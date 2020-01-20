@@ -8,7 +8,7 @@
 Import-Module ActiveDirectory
 
 #Set variables
-$CSVpath = 'C:\Mgmt\PS\CSV\Users_PenM_OK.csv'  
+$CSVpath = ''  
 $customOU = "OU=x,OU=y,OU=organization,DC=domain,DC=local"
 
 #Import CSV into variable $usersCSV
